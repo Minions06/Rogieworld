@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Diary | FB Style</title>
+    <style>
+        :root { --fb-blue: #1877F2; --fb-bg: #F0F2F5; --fb-gray: #65676B; --fb-red: #f02849; }
+        body { font-family: Segoe UI, Helvetica, Arial, sans-serif; background-color: var(--fb-bg); margin: 0; padding: 0; }
+        
+        /* Header & Profile Section */
+        .header-card { background: white; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding-bottom: 20px; }
+        .cover-container { width: 100%; max-width: 940px; height: 350px; background: #ddd; margin: 0 auto; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; overflow: hidden; position: relative; }
+        .cover-container img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.3s; }
+        
+        .profile-bar { max-width: 940px; margin: -30px auto 0; padding: 0 30px; display: flex; align-items: flex-end; gap: 20px; }
+        #profile-pic { width: 168px; height: 168px; border-radius: 50%; border: 4px solid white; background: #eee; object-fit: cover; z-index: 1; cursor: pointer; transition: 0.3s; }
+        
+        /* Animation kapag kinlik */
+        #profile-pic:active, .cover-container img:active, .post-img:active { transform: scale(0.96); }
+        #profile-pic:hover, .cover-container img:hover, .post-img:hover { opacity: 0.9; }
+
+        .name-box { margin-bottom: 15px; flex-grow: 1; }
+        #author-name { font-size: 2rem; font-weight: bold; margin: 0; color: #1c1e21; }
+        #author-bio { color: var(--fb-gray); font-size: 1rem; margin: 5px 0; white-space: pre-wrap; }
+
+        /* Layout */
+        .content-container { max-width: 940px; margin: 20px auto; display: grid; grid-template-columns: 360px 1fr; gap: 16px; padding: 0 16px; box-sizing: border-box; }
+        @media (max-width: 850px) { 
+            .content-container { grid-template-columns: 1fr; } 
+            .profile-bar { flex-direction: column; align-items: center; text-align: center; margin-top: -84px; }
+            .cover-container { height: 200px; }
+        }
+
+        .card { background: white; padding: 16px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 16px; }
+        .card h3 { margin-top: 0; font-size: 1.2rem; }
+
+        textarea, input[type="text"] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; box-sizing: border-box; font-family: inherit; }
+        .btn-main { background: var(--fb-blue); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; }
+        
+        #admin-panel, #create-post { display: none; }
+
+        /* Post Style */
+        .post { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 16px; position: relative; }
+        .post-info { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .post-info img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer; }
+        .p-name { font-weight: bold; font-size: 0.9rem; }
+        .p-date { font-size: 0.75rem; color: var(--fb-gray); }
+        .post-text { font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; white-space: pre-wrap; }
+        .post-img { width: calc(100% + 24px); margin-left: -12px; margin-right: -12px; display: block; cursor: pointer; }
+
+        /* Delete Button */
+        .del-btn { position: absolute; top: 12px; right: 12px; background: #f2f2f2; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; color: var(--fb-gray); display: none; align-items: center; justify-content: center; font-size: 14px; }
+        .del-btn:hover { background: #e4e6eb; color: var(--fb-red); }
+
+        /* Lightbox (Zoom) - Pinakaimportante */
+        .lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; cursor: pointer; }
+        .lightbox img { max-width: 90%; max-height: 85%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+
+        #lock-btn { position: fixed; bottom: 20px; right: 20px; background: white; border: 1px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 100; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+<div class="header-card">
+    <div class="cover-container">
+        <img id="cover-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1000" onclick="window.zoomImg(this.src)">
+    </div>
+    <div class="profile-bar">
+        <img id="profile-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" onclick="window.zoomImg(this.src)">
+        <div class="name-box">
+            <h1 id="author-name">Loading Diary...</h1>
+            <p id="author-bio">Welcome to my personal journal.</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-container">
+    <div class="sidebar">
+        <div class="card">
+
+
+    <p style="font-style: italic; font-size: 0.85rem; color: var(--fb-gray);">
+        "The Digital Ink of My Soul <br>
+A scroll, a tap, a moment caught in flight, <br>
+A quiet thought shared in the glow of light. <br>
+Not just a feed of photos or of names,<br>
+But steady embers from my inner flames.<br>
+Here, the seconds pause and find a home,<br>
+Within these walls where only memories roam.<br>
+From heavy days to sun-drenched, simple joys,<br>
+A sanctuary built from digital noise.<br>
+Click the lock, let the world disappear,<br>
+The truth of who I am is written here.<br>
+A heart in pixels, a life in every post<br>
+The quiet updates that I value most."
+    </p>
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
+    <p>🌎 Digital diary</p>
+    <p>📅 Started @2026</p>
+    <p id="post-stat">Posts: 0</p>
+</div>
+
+        <div id="admin-panel" class="card" style="background: #e7f3ff;">
+            <h3>Admin Settings ⚙️</h3>
+            <input type="text" id="edit-name" placeholder="Pangalan"> <br>
+            <input type="text" id="edit-bio" placeholder="Bio">
+            <label style="font-size: 11px;">Profile Picture:</label>
+            <input type="file" id="new-pp" accept="image/*">
+            <label style="font-size: 11px;">Cover Photo:</label>
+            <input type="file" id="new-cover" accept="image/*">
+            <button class="btn-main" onclick="updateProfile()">Save Profile</button>
+            <p id="p-status" style="font-size: 11px; color: var(--fb-blue);"></p>
+        </div>
+    </div>
+
+    <div class="feed-col">
+        <div id="create-post" class="card">
+            <h3>Ano ang nasa isip mo?</h3>
+            <textarea id="postText" placeholder="Write something..."></textarea>
+            <input type="file" id="postImage" accept="image/*">
+            <button class="btn-main" id="uploadBtn">Share your memory</button>
+            <p id="u-status" style="font-size: 11px; color: var(--fb-blue);"></p>
+        </div>
+        <div id="feed"></div>
+    </div>
+</div>
+
+<div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="">
+</div>
+
+<button id="lock-btn" onclick="askAdmin()">🔑</button>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDPhyTW9u9mlECayKF-H6LnbBgUc0UAmzo",
+        authDomain: "my-diary-65819.firebaseapp.com",
+        databaseURL: "https://my-diary-65819-default-rtdb.firebaseio.com",
+        projectId: "my-diary-65819",
+        storageBucket: "my-diary-65819.firebasestorage.app",
+        messagingSenderId: "596106682074",
+        appId: "1:596106682074:web:494301ef7ca26bea3ccfe3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    window.isAdmin = false;
+
+    // Zoom Function (Global)
+    window.zoomImg = (src) => {
+        if(!src || src.includes('flaticon.com')) return; 
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        lbImg.src = src;
+        lb.style.display = 'flex';
+    };
+
+    // Load Profile
+    onValue(ref(db, 'profile'), (snap) => {
+        const data = snap.val();
+        if(data) {
+            document.getElementById('author-name').innerText = data.name || "Your Name";
+            document.getElementById('author-bio').innerText = data.bio || "Welcome to my journal";
+            if(data.pic) document.getElementById('profile-pic').src = data.pic;
+            if(data.cover) document.getElementById('cover-img').src = data.cover;
+            window.currentPP = data.pic;
+            window.currentCover = data.cover;
+        }
+    });
+
+    // Admin Access
+    window.askAdmin = () => {
+        const pw = prompt("Password:");
+        if(pw === "qu3113n3") {
+            window.isAdmin = true;
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('create-post').style.display = 'block';
+            renderPosts(); 
+            alert("Admin Access On!");
+        }
+    };
+
+    window.deletePost = (id) => {
+        if(confirm("Sigurado ka bang buburahin ito?")) {
+            remove(ref(db, `posts/${id}`));
+        }
+    };
+
+    async function uploadImage(file) {
+        const formData = new FormData();
+        formData.append("image", file);
+        try {
+            const res = await fetch("https://api.imgbb.com/1/upload?key=46177d906013808e89e6233c72cfce6a", {
+                method: "POST",
+                body: formData
+            });
+            const data = await res.json();
+            return data?.data?.url || null;
+        } catch (error) { return null; }
+    }
+
+    window.updateProfile = async () => {
+        const status = document.getElementById('p-status');
+        const nameInput = document.getElementById('edit-name').value;
+        const bioInput = document.getElementById('edit-bio').value;
+        const ppFile = document.getElementById('new-pp').files[0];
+        const coverFile = document.getElementById('new-cover').files[0];
+
+        status.innerText = "Updating...";
+        let pic = window.currentPP || "";
+        let cover = window.currentCover || "";
+
+        if(ppFile) pic = await uploadImage(ppFile);
+        if(coverFile) cover = await uploadImage(coverFile);
+
+        set(ref(db, 'profile'), {
+            name: nameInput || document.getElementById('author-name').innerText,
+            bio: bioInput || document.getElementById('author-bio').innerText,
+            pic: pic,
+            cover: cover
+        }).then(() => {
+            status.innerText = "Profile Updated!";
+        });
+    };
+
+    document.getElementById('uploadBtn').onclick = async () => {
+        const status = document.getElementById('u-status');
+        const text = document.getElementById('postText').value;
+        const file = document.getElementById('postImage').files[0];
+        if(!text && !file) return;
+
+        status.innerText = "Posting...";
+        let imageUrl = file ? await uploadImage(file) : "";
+
+        push(ref(db, 'posts'), {
+            text,
+            image: imageUrl,
+            date: new Date().toLocaleString()
+        }).then(() => {
+            document.getElementById('postText').value = "";
+            document.getElementById('postImage').value = "";
+            status.innerText = "Shared!";
+        });
+    };
+
+    function renderPosts() {
+        onValue(ref(db, 'posts'), (snap) => {
+            const feed = document.getElementById('feed');
+            feed.innerHTML = "";
+            if(snap.exists()){
+                const data = snap.val();
+                const postIds = Object.keys(data).reverse();
+                document.getElementById('post-stat').innerText = `Posts: ${postIds.length}`;
+                
+                postIds.forEach(id => {
+                    const post = data[id];
+                    feed.innerHTML += `
+                        <div class="post">
+                            <button class="del-btn" style="display: ${window.isAdmin ? 'flex' : 'none'}" onclick="window.deletePost('${id}')">✕</button>
+                            <div class="post-info">
+                                <img src="${window.currentPP || 'https://via.placeholder.com/40'}" onclick="window.zoomImg(this.src)">
+                                <div>
+                                    <div class="p-name">${document.getElementById('author-name').innerText}</div>
+                                    <div class="p-date">${post.date}</div>
+                                </div>
+                            </div>
+                            <div class="post-text">${post.text}</div>
+                            ${post.image ? `<img src="${post.image}" class="post-img" onclick="window.zoomImg('${post.image}')">` : ''}
+                        </div>
+                    `;
+                });
+            }
+        });
+    }
+
+    renderPosts();
+</script>
+</body>
+</html>
