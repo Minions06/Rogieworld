@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OUR LITTLE WORLD</title>
+    <title>QUELLENE WORLD | Poetry Gallery</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
@@ -20,8 +20,10 @@
             font-family: 'Georgia', serif;
         }
 
+        /* Navbar */
         .navbar { background: #fff !important; border-bottom: 1px solid #eee; }
 
+        /* Sidebar - Clickable Categories */
         .sidebar-card {
             background: white;
             border-radius: 15px;
@@ -29,6 +31,21 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
+        .category-link {
+            text-decoration: none;
+            color: #555;
+            transition: 0.3s;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .category-link:hover {
+            color: var(--accent-soft);
+            padding-left: 5px;
+            font-weight: bold;
+        }
+
+        /* Banner */
         .promo-banner {
             background: linear-gradient(135deg, #2c3e50, #4ca1af);
             color: white;
@@ -36,6 +53,7 @@
             padding: 40px;
         }
 
+        /* Poetry Card */
         .book-card {
             background: white;
             padding: 15px;
@@ -45,7 +63,10 @@
             border: 1px solid #eee;
         }
 
-        .book-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .book-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+        }
 
         .book-img {
             aspect-ratio: 2/3;
@@ -62,6 +83,8 @@
             font-size: 0.85rem;
             text-decoration: none;
             display: inline-block;
+            border: none;
+            width: 100%;
         }
 
         .btn-custom:hover { background-color: var(--accent-soft); color: white; }
@@ -72,106 +95,73 @@
     <nav class="navbar navbar-expand-lg sticky-top py-3">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#" style="color: var(--poetry-dark);">
-                <i class="bi bi-feather me-2"></i>QUERIKIM WORLD
+                <i class="bi bi-feather me-2"></i>QUELLENE WORLD
             </a>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2 rounded-pill" type="search" placeholder="Search ...">
-                <button class="btn btn-outline-dark rounded-pill" type="submit">Search</button>
-            </form>
+            <div class="d-flex">
+                <input class="form-control me-2 rounded-pill shadow-sm" type="search" placeholder="Search poems...">
+            </div>
         </div>
     </nav>
 
     <div class="container my-5">
         <div class="row g-4">
             
-            <aside class="col-lg-3 d-none d-lg-block">
-                <div class="p-4 bg-white rounded-4 shadow-sm border-0">
-                    <h5 class="fw-bold mb-4" style="color: var(--book-brown);">
-                        <i class="bi bi-feather me-2"></i> QUELLENE'S COLLECTIONS
-                    </h5>
-                    <div class="list-group category-list">
-                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-heart me-2 text-danger"></i>Romance</span>
-                            <span class="badge rounded-pill bg-light text-muted border">12</span>
-                        </a>
-                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-cloud-rain me-2 text-primary"></i>Melancholy</span>
-                            <span class="badge rounded-pill bg-light text-muted border">8</span>
-                        </a>
-                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-sun me-2 text-warning"></i>Hope</span>
-                            <span class="badge rounded-pill bg-light text-muted border">15</span>
-                        </a>
-                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-moon-stars me-2 text-dark"></i>Darkness</span>
-                            <span class="badge rounded-pill bg-light text-muted border">6</span>
-                        </a>
-                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-compass me-2 text-success"></i>Adventure</span>
-                            <span class="badge rounded-pill bg-light text-muted border">9</span>
-                        </a>
-                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-journal-richtext me-2 text-secondary"></i>Free Verse</span>
-                            <span class="badge rounded-pill bg-light text-muted border">20</span>
-                        </a>
-                    </div>
-                    
-                    <hr class="my-4">
-                    
-                    <div class="mt-4 text-center px-2">
-                        <p class="fst-italic text-muted small">
-                            "Cry of the Mute Witnesses."
-                        </p>
-                        <div class="border-top w-25 mx-auto mt-2"></div>
+            <aside class="col-lg-3">
+                <div class="sidebar-card">
+                    <h6 class="fw-bold mb-3 text-muted text-uppercase" style="letter-spacing: 1px;">Collections</h6>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="category-link border-0"><i class="bi bi-heart me-2"></i> Love & Affection</a>
+                        <a href="#" class="category-link border-0"><i class="bi bi-cloud-rain me-2"></i> Melancholy</a>
+                        <a href="#" class="category-link border-0"><i class="bi bi-sun me-2"></i> Hope & Dreams</a>
+                        <a href="#" class="category-link border-0"><i class="bi bi-moon-stars me-2"></i> Shadows</a>
+                        <a href="#" class="category-link border-0"><i class="bi bi-journal-text me-2"></i> Free Verse</a>
                     </div>
                 </div>
             </aside>
 
             <main class="col-lg-9">
                 
-                <section class="promo-banner mb-5">
-                    <h1 class="fw-bold mb-3">Echoes of Silence</h1>
-                    <p class="mb-4">A digital anthology of poems written between whispers and silence.</p>
-                    <a href="#" class="btn btn-light rounded-pill px-4 fw-bold">KIM'S</a>
-                    <a href="#" class="btn btn-light rounded-pill px-4 fw-bold">RICHINE'S</a>
+                <section class="promo-banner mb-5 shadow-sm">
+                    <h1 class="fw-bold mb-2">Echoes of Silence</h1>
+                    <p class="mb-4 text-white-50">A personal digital anthology curated for the wandering soul.</p>
+                    <a href="#" class="btn btn-light rounded-pill px-4 fw-bold">Explore Archive</a>
                 </section>
 
-                <h4 class="fw-bold mb-4">SUGGESTION</h4>
+                <h4 class="fw-bold mb-4">Latest Entries</h4>
 
-                <div class="col-md-4 col-sm-6">
-    <div class="book-card text-center d-flex flex-column">
-        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80" 
-             class="book-img w-100" alt="Poem">
-             
-        <h6 class="fw-bold mb-1">Between the Lines</h6>
-        <p class="small text-muted mb-2">by Lualhati Bautista</p>
-        <p class="small fst-italic text-secondary mb-3">"In every pause of the pen, there live words..."</p>
-        <div class="mt-auto">
-            <a href="#" class="btn-custom w-100 text-decoration-none text-white">Read Poem</a>
-        </div>
-    </div>
-</div>
-
+                <div class="row g-4">
                     <div class="col-md-4 col-sm-6">
                         <div class="book-card text-center d-flex flex-column">
-                            <img src="https://images.unsplash.com/photo-1474932430478-367dbb6832c1?auto=format&fit=crop&w=400&q=80" class="book-img w-100" alt="Poem">
-                            <h6 class="fw-bold mb-1">Voice of the East</h6>
-                            <p class="small text-muted mb-2">by Juan Dela Cruz</p>
-                            <p class="small fst-italic text-secondary mb-3">"I hear the whisper of the monsoon wind..."</p>
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80" class="book-img w-100" alt="Poem Cover">
+                            <h6 class="fw-bold mb-1">Between the Lines</h6>
+                            <p class="small text-muted mb-2">by Lualhati Bautista</p>
+                            <p class="small fst-italic text-secondary mb-3 px-1">"In every pause of the pen, there live words..."</p>
                             <div class="mt-auto">
-                                <a href="#" class="btn-custom w-100">Read Poem</a>
+                                <a href="#" class="btn-custom">Read Poem</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                         <div class="book-card text-center d-flex flex-column">
-                            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" class="book-img w-100" alt="Poem">
+                            <img src="https://images.unsplash.com/photo-1516667791868-95450cc239d8?auto=format&fit=crop&w=800&q=80" class="book-img w-100" alt="Poem Cover">
+                            <h6 class="fw-bold mb-1">Voice of the East</h6>
+                            <p class="small text-muted mb-2">by Juan Dela Cruz</p>
+                            <p class="small fst-italic text-secondary mb-3 px-1">"I hear the whisper of the monsoon wind..."</p>
+                            <div class="mt-auto">
+                                <a href="#" class="btn-custom">Read Poem</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="book-card text-center d-flex flex-column">
+                            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80" class="book-img w-100" alt="Poem Cover">
                             <h6 class="fw-bold mb-1">The Last Thread</h6>
                             <p class="small text-muted mb-2">by Maria Clara</p>
-                            <p class="small fst-italic text-secondary mb-3">"Even the thinnest thread has strength..."</p>
+                            <p class="small fst-italic text-secondary mb-3 px-1">"Even the thinnest thread has strength..."</p>
                             <div class="mt-auto">
-                                <a href="#" class="btn-custom w-100">Read More</a>
+                                <a href="#" class="btn-custom">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -181,12 +171,12 @@
         </div>
     </div>
 
-    <footer class="bg-white py-4 mt-5 border-top text-center">
-        <p class="text-muted small mb-0">&copy; 2026 QUELLENE, KIM & RICHINE</p>
+    <footer class="bg-white py-4 mt-5 border-top">
+        <div class="container text-center">
+            <p class="text-muted small mb-0">&copy; 2026 QUELLENE, KIM & RICHINE. All rights reserved.</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
