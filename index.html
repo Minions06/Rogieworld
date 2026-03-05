@@ -3,74 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bootstrap Site</title>
+    <title>QUELLENE BOOKSTORE</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        .hero-section {
-            padding: 100px 0;
-            background: #f8f9fa;
+        :root {
+            --book-cream: #f9f7f2;
+            --book-brown: #5d4037;
         }
-        .feature-icon {
-            font-size: 2rem;
-            color: #0d6efd;
+        body { background-color: var(--book-cream); color: #2d3436; }
+        .navbar { background-color: #fff !important; border-bottom: 1px solid #ddd; }
+        .book-card {
+            border: none;
+            background: transparent;
+            transition: transform 0.3s ease;
+        }
+        .book-card:hover { transform: translateY(-10px); }
+        .book-img {
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .category-list .list-group-item {
+            background: transparent;
+            border: none;
+            padding-left: 0;
+            color: var(--book-brown);
+        }
+        .category-list .list-group-item:hover { font-weight: bold; }
+        .promo-banner {
+            background-color: var(--book-brown);
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">BrandName</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
+            <a class="navbar-brand fw-bold text-brown" href="#"><i class="bi bi-book-half"></i> Chapter & Verse</a>
+            <div class="d-flex align-items-center">
+                <a href="#" class="text-dark me-3"><i class="bi bi-search"></i></a>
+                <a href="#" class="text-dark position-relative">
+                    <i class="bi bi-cart3"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                </a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-4 fw-bold">Build Something Amazing</h1>
-            <p class="lead">This is a simple landing page built entirely with Bootstrap components.</p>
-            <a href="#" class="btn btn-primary btn-lg">Get Started</a>
-            <a href="#" class="btn btn-outline-secondary btn-lg">Learn More</a>
-        </div>
-    </section>
+    <div class="container my-5">
+        <div class="row">
+            <aside class="col-lg-3 d-none d-lg-block">
+                <h5 class="fw-bold mb-3">Categories</h5>
+                <div class="list-group category-list">
+                    <a href="#" class="list-group-item list-group-item-action">Fiction</a>
+                    <a href="#" class="list-group-item list-group-item-action">Non-Fiction</a>
+                    <a href="#" class="list-group-item list-group-item-action">Science Fiction</a>
+                    <a href="#" class="list-group-item list-group-item-action">Biography</a>
+                    <a href="#" class="list-group-item list-group-item-action">Mystery & Thriller</a>
+                    <a href="#" class="list-group-item list-group-item-action">History</a>
+                </div>
+            </aside>
 
-    <section id="features" class="py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <div class="p-3">
-                        <h3>Responsive</h3>
-                        <p>Works on all devices, from mobile to desktop.</p>
+            <main class="col-lg-9">
+                <div class="promo-banner mb-5 d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="fw-bold">Spring Sale</h2>
+                        <p class="mb-0">Get 20% off all Classic Literature this month.</p>
+                        <button class="btn btn-light mt-3 px-4 rounded-pill">Shop Now</button>
                     </div>
+                    <i class="bi bi-bookmark-star display-1 opacity-25"></i>
                 </div>
-                <div class="col-md-4">
-                    <div class="p-3">
-                        <h3>Fast</h3>
-                        <p>Lightweight and optimized for speed.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3">
-                        <h3>Customizable</h3>
-                        <p>Easy to change colors, fonts, and layouts.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer class="bg-dark text-white text-center py-4">
-        <div class="container">
-            <p>&copy; 2026 BrandName. All rights reserved.</p>
+                <h4 class="fw-bold mb-4">New Arrivals</h4>
+                
+                <div class="row g-4">
+                    <div class="col-6 col-md-4 col-xl-3">
+                        <div class="book-card text-center">
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=400&q=80" class="book-img w-100 mb-3" alt="Book Cover">
+                            <h6 class="fw-bold mb-1">The Great Escape</h6>
+                            <p class="small text-muted mb-1">J.K. Rowling</p>
+                            <p class="fw-bold text-primary">$18.50</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-xl-3">
+                        <div class="book-card text-center">
+                            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80" class="book-img w-100 mb-3" alt="Book Cover">
+                            <h6 class="fw-bold mb-1">Night Owls</h6>
+                            <p class="small text-muted mb-1">Mark Sullivan</p>
+                            <p class="fw-bold text-primary">$22.00</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-xl-3">
+                        <div class="book-card text-center">
+                            <img src="https://images.unsplash.com/photo-1589998059171-988d887df64e?auto=format&fit=crop&w=400&q=80" class="book-img w-100 mb-3" alt="Book Cover">
+                            <h6 class="fw-bold mb-1">Beyond Logic</h6>
+                            <p class="small text-muted mb-1">Dr. Sarah West</p>
+                            <p class="fw-bold text-primary">$15.99</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-xl-3">
+                        <div class="book-card text-center">
+                            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=400&q=80" class="book-img w-100 mb-3" alt="Book Cover">
+                            <h6 class="fw-bold mb-1">The Silent Patient</h6>
+                            <p class="small text-muted mb-1">Alex Michaelides</p>
+                            <p class="fw-bold text-primary">$24.00</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="bg-white py-5 border-top">
+        <div class="container text-center text-muted">
+            <p>&copy; 2026 Chapter & Verse Bookstore. Stay curious.</p>
         </div>
     </footer>
 
